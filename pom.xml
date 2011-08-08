@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>no.openshell.oddstr13</groupId>
+  <artifactId>minecartmeter</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>MinecartMeter</name>
+  <url>http://oddstr13.openshell.no</url>
+
+  <!-- directory that contains the lib jars -->
+<!--  <properties>
+    <lib.path>/home/oddstr13/prgsrc/lib</lib.path>
+  </properties>
+-->
+  <build>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>2.0.2</version>
+              <configuration>
+                  <source>1.5</source>
+                  <target>1.5</target>
+              </configuration>
+          </plugin>
+      </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+        <groupId>org.bukkit</groupId>
+        <artifactId>bukkit</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+<!--
+        <scope>system</scope>
+        <systemPath>${lib.path}/bukkit-0.0.1-SNAPSHOT.jar</systemPath>
+-->
+    </dependency>
+<!--
+    <dependency>
+        <groupId>org.getspout</groupId>
+        <artifactId>spoutapi</artifactId>
+        <version>1.0.1</version>
+        <scope>system</scope>
+        <systemPath>${lib.path}/SpoutAPI.jar</systemPath>
+    </dependency>
+-->
+<!--
+    <dependency>
+        <groupId>com.nijiko</groupId>
+        <artifactId>permissions</artifactId>
+        <version>2.7.4</version>
+        <scope>system</scope>
+        <systemPath>${lib.path}/Permissions-2.7.4.jar</systemPath>
+    </dependency>
+-->
+  </dependencies>
+</project>
