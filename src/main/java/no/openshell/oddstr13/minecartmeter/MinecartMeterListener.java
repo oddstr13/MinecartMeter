@@ -50,6 +50,23 @@ public class MinecartMeterListener extends VehicleListener {
         handleExitVehicle(vehicle, entity);
     }
 
+    @Override
+    public void onVehicleDestroy(VehicleDestroyEvent event) {
+        Vehicle vehicle = event.getVehicle();
+        if (vehicle instanceof Minecart) {
+            Minecart cart = (Minecart) vehicle;
+            Location l = cart.getLocation();
+            if (!cart.isEmpty()) {
+                Entity entity = cart.getPassenger();
+                if (entity instanceof Player) {
+                    Player player = (Player) entity;
+                    System.out.println("[DEBUG]: minecart " + cart.getEntityId() + " destroyed, passenger " + player.getName() + " ejected.");
+                    
+                }
+            }
+        }
+    }
+
     public void handleExitVehicle(Vehicle vehicle, Entity entity) {
         if (vehicle instanceof Minecart) {
             Minecart cart = (Minecart) vehicle;
@@ -67,8 +84,8 @@ public class MinecartMeterListener extends VehicleListener {
                 }
                 Location startlocation = plugin.getStartLocation(player);
                 Double distance = l.distance(startlocation);
-                System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + plugin.doubleMetersToString(distance) + " meters by railroad.");
-                player.sendMessage("[DEBUG]: You have traveled " + plugin.doubleMetersToString(distance) + " meters by railroad.");
+                System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
+                player.sendMessage("You have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
             }
         }
 
