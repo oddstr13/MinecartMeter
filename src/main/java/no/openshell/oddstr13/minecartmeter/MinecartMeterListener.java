@@ -31,6 +31,11 @@ public class MinecartMeterListener extends VehicleListener {
                   " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
                 player.sendMessage("[DEBUG]: You " + msg);
                 System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+                Entity passenger = cart.getPassenger();
+                if (passenger instanceof Player) {
+                    Player p = (Player) passenger;
+                    System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
+                }
             }
         }
     }
@@ -48,6 +53,11 @@ public class MinecartMeterListener extends VehicleListener {
                   " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
                 player.sendMessage("[DEBUG]: You " + msg);
                 System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+                Entity passenger = cart.getPassenger();
+                if (passenger instanceof Player) {
+                    Player p = (Player) passenger;
+                    System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
+                }
             }
         }
     }
