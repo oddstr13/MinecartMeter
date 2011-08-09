@@ -65,7 +65,7 @@ public class MinecartMeter extends JavaPlugin {
         if (startlocations.containsKey(player.getName())) {
             return startlocations.get(player.getName());
         } else {
-            return false;
+            return null;
         }
     }
 

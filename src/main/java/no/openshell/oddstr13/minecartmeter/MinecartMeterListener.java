@@ -62,7 +62,7 @@ public class MinecartMeterListener extends VehicleListener {
                     System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
                 }
                 Location startlocation = plugin.getStartLocation(player);
-                Double distance = l.lenght(startlocation);
+                Double distance = l.distance(startlocation);
                 System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + distance + " meters by railroad.");
                 player.sendMessage("[DEBUG]: You have traveled " + distance + " meters by railroad.");
             }
