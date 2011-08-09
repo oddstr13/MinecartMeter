@@ -1,0 +1,8 @@
+main: "no.openshell.oddstr13.minecartmeter.MinecartMeter"
+name: "MinecartMeter"
+version: "0.0.1"
+description: "Show distance and time traveled by minecart when exiting the minecart."
+author: "Oddstr13"
+website: "http://oddstr13.openshell.no"
+commands:
+    minecartmeter:
