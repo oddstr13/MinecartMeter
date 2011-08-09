@@ -29,7 +29,7 @@ public class MinecartMeterListener extends VehicleListener {
                 Location l = cart.getLocation();
                 String msg = "entered minecart with entityId " + cart.getEntityId() + 
                   " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
-                player.sendmessage("[DEBUG]: You " + msg);
+                player.sendMessage("[DEBUG]: You " + msg);
                 System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
             }
         }
