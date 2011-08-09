@@ -51,7 +51,7 @@ public class MinecartMeter extends JavaPlugin {
 //           Called when a vehicle moves position in the world
 
         // Register our commands
-        getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
+//        getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
 //        getCommand("debug").setExecutor(new SampleDebugCommand(this));
 
         // EXAMPLE: Custom code, here we just output some info so we can check all is well

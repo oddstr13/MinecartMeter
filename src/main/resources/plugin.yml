@@ -5,4 +5,4 @@ description: "Show distance and time traveled by minecart when exiting the minec
 author: "Oddstr13"
 website: "https://github.com/oddstr13/MinecartMeter"
 commands:
-    minecartmeter:
+minecartmeter:
