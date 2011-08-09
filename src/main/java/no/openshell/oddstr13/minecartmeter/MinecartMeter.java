@@ -61,16 +61,16 @@ public class MinecartMeter extends JavaPlugin {
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
     }
 
-    public String getStartLocation(final String player) {
-        if (startlocations.containsKey(player)) {
-            return startlocations.get(player);
+    public Location getStartLocation(final Player player) {
+        if (startlocations.containsKey(player.getName())) {
+            return startlocations.get(player.getName());
         } else {
             return false;
         }
     }
 
-    public void setStartLocation(final String player, final Location value) {
-        startlocations.put(player, value);
+    public void setStartLocation(final Player player, final Location value) {
+        startlocations.put(player.getName(), value);
     }
 
 /*
