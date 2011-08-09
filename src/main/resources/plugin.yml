@@ -3,6 +3,6 @@ name: "MinecartMeter"
 version: "0.0.1"
 description: "Show distance and time traveled by minecart when exiting the minecart."
 author: "Oddstr13"
-website: "http://oddstr13.openshell.no"
+website: "https://github.com/oddstr13/MinecartMeter"
 commands:
     minecartmeter:

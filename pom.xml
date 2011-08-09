@@ -4,7 +4,7 @@
   <artifactId>minecartmeter</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>MinecartMeter</name>
-  <url>http://oddstr13.openshell.no</url>
+  <url>https://github.com/oddstr13/MinecartMeter</url>
 
   <!-- directory that contains the lib jars -->
 <!--  <properties>
