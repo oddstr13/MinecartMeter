@@ -7,6 +7,7 @@ import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.Location;
 
 /**
  * Sample plugin for Bukkit
@@ -16,7 +17,7 @@ import org.bukkit.plugin.PluginManager;
 public class MinecartMeter extends JavaPlugin {
     private final MinecartMeterListener mmListener = new MinecartMeterListener(this);
 //    private final SampleBlockListener blockListener = new SampleBlockListener(this);
-//    private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
+    private final HashMap<Player, Location> startlocations = new HashMap<Player, Location>();
 
     // NOTE: There should be no need to define a constructor any more for more info on moving from
     // the old constructor see:
