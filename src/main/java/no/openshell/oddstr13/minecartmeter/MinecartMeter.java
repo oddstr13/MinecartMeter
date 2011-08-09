@@ -17,7 +17,7 @@ import org.bukkit.Location;
 public class MinecartMeter extends JavaPlugin {
     private final MinecartMeterListener mmListener = new MinecartMeterListener(this);
 //    private final SampleBlockListener blockListener = new SampleBlockListener(this);
-    private final HashMap<Player, Location> startlocations = new HashMap<Player, Location>();
+    private final HashMap<String, Location> startlocations = new HashMap<String, Location>();
 
     // NOTE: There should be no need to define a constructor any more for more info on moving from
     // the old constructor see:
@@ -59,6 +59,18 @@ public class MinecartMeter extends JavaPlugin {
         PluginDescriptionFile pdfFile = this.getDescription();
         // TODO: maybe reformat the plugin enabled message?
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
+    }
+
+    public String getStartLocation(final String player) {
+        if (startlocations.containsKey(player)) {
+            return startlocations.get(player);
+        } else {
+            return false;
+        }
+    }
+
+    public void setStartLocation(final String player, final Location value) {
+        startlocations.put(player, value);
     }
 
 /*
