@@ -34,4 +34,22 @@ public class MinecartMeterListener extends VehicleListener {
             }
         }
     }
+
+    @Override
+    public void onVehicleExit(VehicleExitEvent event) {
+        Entity entity = event.getExited();
+        Vehicle vehicle = event.getVehicle();
+        if (vehicle instanceof Minecart) {
+            Minecart cart = (Minecart) vehicle;
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+                Location l = cart.getLocation();
+                String msg = "exited minecart with entityId " + cart.getEntityId() + 
+                  " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
+                player.sendMessage("[DEBUG]: You " + msg);
+                System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+            }
+        }
+    }
+
 }
