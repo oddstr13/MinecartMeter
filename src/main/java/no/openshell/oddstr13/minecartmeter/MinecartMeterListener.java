@@ -26,18 +26,18 @@ public class MinecartMeterListener extends VehicleListener {
             Minecart cart = (Minecart) vehicle;
             if (entity instanceof Player) {
                 Entity passenger = cart.getPassenger();
-                if (!passenger instanceof Player) {
-                Player player = (Player) entity;
-                Location l = cart.getLocation();
-                String msg = "entered minecart with entityId " + cart.getEntityId() + 
-                  " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
-                player.sendMessage("[DEBUG]: You " + msg);
-                System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
-                Entity passenger = cart.getPassenger();
-                } else {
+                if (passenger instanceof Player) {
                     Player p = (Player) passenger;
                     System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
                     System.out.println("[DEBUG]: This is most likly a ghost event.");
+                } else {
+                    Player player = (Player) entity;
+                    Location l = cart.getLocation();
+                    String msg = "entered minecart with entityId " + cart.getEntityId() + 
+                      " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
+                    player.sendMessage("[DEBUG]: You " + msg);
+                    System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+                    Entity passenger = cart.getPassenger();
                 }
             }
         }
