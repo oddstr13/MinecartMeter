@@ -47,12 +47,16 @@ public class MinecartMeterListener extends VehicleListener {
     public void onVehicleExit(VehicleExitEvent event) {
         Entity entity = event.getExited();
         Vehicle vehicle = event.getVehicle();
+        handleExitVehicle(vehicle, entity);
+    }
+
+    public void handleExitVehicle(Vehicle vehicle, Entity entity) {
         if (vehicle instanceof Minecart) {
             Minecart cart = (Minecart) vehicle;
             if (entity instanceof Player) {
                 Player player = (Player) entity;
                 Location l = cart.getLocation();
-                String msg = "exited minecart with entityId " + cart.getEntityId() + 
+                String msg = "exited minecart with entityId " + cart.getEntityId() +
                   " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
                 player.sendMessage("[DEBUG]: You " + msg);
                 System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
@@ -63,10 +67,10 @@ public class MinecartMeterListener extends VehicleListener {
                 }
                 Location startlocation = plugin.getStartLocation(player);
                 Double distance = l.distance(startlocation);
-                System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + distance + " meters by railroad.");
-                player.sendMessage("[DEBUG]: You have traveled " + distance + " meters by railroad.");
+                System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + plugin.doubleMetersToString(distance) + " meters by railroad.");
+                player.sendMessage("[DEBUG]: You have traveled " + plugin.doubleMetersToString(distance) + " meters by railroad.");
             }
         }
-    }
 
+    }
 }

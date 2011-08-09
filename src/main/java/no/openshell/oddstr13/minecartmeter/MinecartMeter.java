@@ -1,6 +1,7 @@
 package no.openshell.oddstr13.minecartmeter;
 
 import java.util.HashMap;
+import java.text.DecimalFormat;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event;
@@ -73,6 +74,11 @@ public class MinecartMeter extends JavaPlugin {
         startlocations.put(player.getName(), value);
     }
 
+
+    public String doubleMetersToString(double meters) {
+        DecimalFormat f = new DecimalFormat("#.##");
+        return f.format(meters);
+    }
 /*
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
