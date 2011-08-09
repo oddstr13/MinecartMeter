@@ -10,9 +10,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.Location;
 
 /**
- * Sample plugin for Bukkit
+ * MinecartMeter
  *
- * @author Dinnerbone
+ * @author Oddstr13
  */
 public class MinecartMeter extends JavaPlugin {
     private final MinecartMeterListener mmListener = new MinecartMeterListener(this);

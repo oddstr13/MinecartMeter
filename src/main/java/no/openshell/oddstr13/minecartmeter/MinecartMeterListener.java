@@ -37,7 +37,7 @@ public class MinecartMeterListener extends VehicleListener {
                       " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
                     player.sendMessage("[DEBUG]: You " + msg);
                     System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
-                    plugin.setStartLocation(player, cart.getLocation());
+                    plugin.setStartLocation(player, l);
                 }
             }
         }
@@ -62,7 +62,7 @@ public class MinecartMeterListener extends VehicleListener {
                     System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
                 }
                 Location startlocation = plugin.getStartLocation(player);
-                Double distance = cart.distance(startlocation);
+                Double distance = l.lenght(startlocation);
                 System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + distance + " meters by railroad.");
                 player.sendMessage("[DEBUG]: You have traveled " + distance + " meters by railroad.");
             }
