@@ -43,7 +43,7 @@ public class MinecartMeterListener extends VehicleListener {
                     World world = l.getWorld();
                     long world_time = world.getTime();
                     long world_hh = world_time/1000;
-                    long world_mm = (world_time - world_hh)*60/1000;
+                    long world_mm = (world_time - (world_hh*1000))*60/1000;
                     System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
                     player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
@@ -127,7 +127,7 @@ public class MinecartMeterListener extends VehicleListener {
                 World world = l.getWorld();
                 long world_time = world.getTime();
                 long world_hh = world_time/1000;
-                long world_mm = (world_time - world_hh)*60/1000;
+                long world_mm = (world_time - (world_hh*1000))*60/1000;
 
                 System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                 System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
