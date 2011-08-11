@@ -41,10 +41,13 @@ public class MinecartMeterListener extends VehicleListener {
                     plugin.setStartLocation(player, l);
                     plugin.resetDistanceCounter(player);
                     World world = l.getWorld();
+                    long world_time = world.getTime();
+                    int world_hh = world_time/1000;
+                    int world_mm = (world_time - world_hh)*60/1000;
                     System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
-                    System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
+                    System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
                     player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
-                    player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
+                    player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
                 }
             }
         }
@@ -122,10 +125,14 @@ public class MinecartMeterListener extends VehicleListener {
                 player.sendMessage("You have traveled " + plugin.getDistanceCounter(player) + " meters.");
                 System.out.println("[DEBUG]: player " + player.getName() + "have traveled " + plugin.getDistanceCounter(player) + " meters.");
                 World world = l.getWorld();
+                long world_time = world.getTime();
+                int world_hh = world_time/1000;
+                int world_mm = (world_time - world_hh)*60/1000;
+
                 System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
-                System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
+                System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
                 player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
-                player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
+                player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
             }
         }
 
