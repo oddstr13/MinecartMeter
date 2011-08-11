@@ -38,6 +38,7 @@ public class MinecartMeterListener extends VehicleListener {
                     player.sendMessage("[DEBUG]: You " + msg);
                     System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
                     plugin.setStartLocation(player, l);
+                    plugin.resetDistanceCounter(player);
                 }
             }
         }
@@ -67,6 +68,32 @@ public class MinecartMeterListener extends VehicleListener {
         }
     }
 
+    @Override
+    public void onVehicleMove(VehicleMoveEvent event) {
+        Vehicle vehicle = event.getVehicle();
+        Location from = event.getFrom();
+        Location to = event.getTo();
+
+        /* from craftbook's MinecartManager.java */
+        boolean crossesBlockBoundary =
+               from.getBlockX() == to.getBlockX()
+            && from.getBlockY() == to.getBlockY()
+            && from.getBlockZ() == to.getBlockZ();
+
+        if (crossesBlockBoundary) {
+            if (vehicle instanceof Minecart) {
+                Minecart cart = (Minecart)vehicle;
+                if (!(cart.isEmpty())) {
+                    Entity passenger = cart.getPassenger();
+                    if (passenger instanceof Player) {
+                        Player player = (Player)passenger;
+                        plugin.increaseDistanceCounter(player);
+                    }
+                }
+            }
+        }
+    }
+
     public void handleExitVehicle(Vehicle vehicle, Entity entity) {
         if (vehicle instanceof Minecart) {
             Minecart cart = (Minecart) vehicle;
@@ -86,6 +113,8 @@ public class MinecartMeterListener extends VehicleListener {
                 Double distance = l.distance(startlocation);
                 System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
                 player.sendMessage("You have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
+                player.sendMessage("You have traveled " + plugin.getDistanceCounter(player) + " meters.");
+                System.out.println("[DEBUG]: player " + player.getName() + "have traveled " + plugin.getDistanceCounter(player) + " meters.");
             }
         }
 

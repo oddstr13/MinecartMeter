@@ -19,6 +19,7 @@ public class MinecartMeter extends JavaPlugin {
     private final MinecartMeterListener mmListener = new MinecartMeterListener(this);
 //    private final SampleBlockListener blockListener = new SampleBlockListener(this);
     private final HashMap<String, Location> startlocations = new HashMap<String, Location>();
+    private final HashMap<String, Integer> traveldistances = new HashMap<String, Integer>();
 
     // NOTE: There should be no need to define a constructor any more for more info on moving from
     // the old constructor see:
@@ -42,6 +43,7 @@ public class MinecartMeter extends JavaPlugin {
         pm.registerEvent(Event.Type.VEHICLE_ENTER, mmListener, Priority.Normal, this);
         pm.registerEvent(Event.Type.VEHICLE_EXIT, mmListener, Priority.Normal, this);
         pm.registerEvent(Event.Type.VEHICLE_DESTROY, mmListener, Priority.Normal, this);
+        pm.registerEvent(Event.Type.VEHICLE_MOVE, mmListener, Priority.Normal, this);
 //        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
 //        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
 //        pm.registerEvent(Event.Type.BLOCK_PHYSICS, blockListener, Priority.Normal, this);
@@ -75,11 +77,23 @@ public class MinecartMeter extends JavaPlugin {
         startlocations.put(player.getName(), value);
     }
 
-
     public String doubleMetersToString(double meters) {
         DecimalFormat f = new DecimalFormat("#.##");
         return f.format(meters);
     }
+
+    public void resetDistanceCounter(final Player player) {
+        traveldistances.put(player.getName(), 0);
+    }
+
+    public void increaseDistanceCounter(final Player player) {
+        traveldistances.put(player.getName(), traveldistances.get(player.getName()) + 1);
+    }
+
+    public int getDistanceCounter(final Player player) {
+        return traveldistances.get(player.getName());
+    }
+
 /*
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
