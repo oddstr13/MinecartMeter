@@ -80,7 +80,7 @@ public class MinecartMeterListener extends VehicleListener {
             && from.getBlockY() == to.getBlockY()
             && from.getBlockZ() == to.getBlockZ();
 
-        if (crossesBlockBoundary) {
+        if (!(crossesBlockBoundary)) {
             if (vehicle instanceof Minecart) {
                 Minecart cart = (Minecart)vehicle;
                 if (!(cart.isEmpty())) {
