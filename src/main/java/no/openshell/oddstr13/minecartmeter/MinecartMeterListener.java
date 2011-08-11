@@ -1,6 +1,7 @@
 package no.openshell.oddstr13.minecartmeter;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.event.vehicle.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Vehicle;
@@ -39,6 +40,11 @@ public class MinecartMeterListener extends VehicleListener {
                     System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
                     plugin.setStartLocation(player, l);
                     plugin.resetDistanceCounter(player);
+                    World world = l.getWorld();
+                    System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
+                    System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
+                    player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
+                    player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
                 }
             }
         }
@@ -115,6 +121,11 @@ public class MinecartMeterListener extends VehicleListener {
                 player.sendMessage("You have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
                 player.sendMessage("You have traveled " + plugin.getDistanceCounter(player) + " meters.");
                 System.out.println("[DEBUG]: player " + player.getName() + "have traveled " + plugin.getDistanceCounter(player) + " meters.");
+                World world = l.getWorld();
+                System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
+                System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
+                player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
+                player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime());
             }
         }
 
