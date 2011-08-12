@@ -44,7 +44,7 @@ public class MinecartMeterListener extends VehicleListener {
                     long world_time = world.getTime();
                     /* huh? +8? woot.. anyway thanks to CommandBook, now we know this */
                     long world_hh = ((world_time / 1000) + 8) % 24;
-                    long world_mm = (world_time - (world_hh*1000))*60/1000;
+                    long world_mm = (world_time - ((world_time / 1000)*1000))*60/1000;
 
                     System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
@@ -130,7 +130,7 @@ public class MinecartMeterListener extends VehicleListener {
                 long world_time = world.getTime();
                 /* huh? +8? woot.. anyway thanks to CommandBook, now we know this */
                 long world_hh = ((world_time / 1000) + 8) % 24;
-                long world_mm = (world_time - (world_hh*1000))*60/1000;
+                long world_mm = (world_time - ((world_time / 1000)*1000))*60/1000;
 
                 System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                 System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
