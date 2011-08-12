@@ -38,11 +38,17 @@ public class MinecartMeterListener extends VehicleListener {
                       " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
                     player.sendMessage("[DEBUG]: You " + msg);
                     System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+
+                    World world = l.getWorld();
+                    long world_full_time = world.getFullTime();
+                    long world_time = world.getTime();
+
                     plugin.setStartLocation(player, l);
                     plugin.resetDistanceCounter(player);
-                    World world = l.getWorld();
-                    long world_time = world.getTime();
+                    plugin.setStartIGTime(player, world_full_time);
+
                     String time_string = plugin.worldTimeToString(world_time);
+
                     System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                     player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
@@ -119,13 +125,23 @@ public class MinecartMeterListener extends VehicleListener {
                 }
                 Location startlocation = plugin.getStartLocation(player);
                 Double distance = l.distance(startlocation);
+
                 System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
                 player.sendMessage("You have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
                 player.sendMessage("You have traveled " + plugin.getDistanceCounter(player) + " meters.");
                 System.out.println("[DEBUG]: player " + player.getName() + "have traveled " + plugin.getDistanceCounter(player) + " meters.");
+
                 World world = l.getWorld();
+                long world_full_time = world.getFullTime();
                 long world_time = world.getTime();
                 String time_string = plugin.worldTimeToString(world_time);
+                long trip_start_time = plugin.getStartIGTime(player);
+                long trip_time = world_full_time - trip_start_time;
+                String trip_time_string = plugin.tripTimeToString(trip_time);
+
+                player.sendMessage("The trip took " + trip_time_string + ".");
+                System.out.println("[DEBUG]: player " + player.getName() + " The trip took " + trip_time_string + ".");
+
                 System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                 System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                 player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());

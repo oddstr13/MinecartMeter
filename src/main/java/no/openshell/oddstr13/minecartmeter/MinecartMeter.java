@@ -20,6 +20,8 @@ public class MinecartMeter extends JavaPlugin {
 //    private final SampleBlockListener blockListener = new SampleBlockListener(this);
     private final HashMap<String, Location> startlocations = new HashMap<String, Location>();
     private final HashMap<String, Integer> traveldistances = new HashMap<String, Integer>();
+    private final HashMap<String, Long> travelIGtimes = new HashMap<String, Long>();
+    private final HashMap<String, Double> travelRLtimes = new HashMap<String, Double>();
 
     // NOTE: There should be no need to define a constructor any more for more info on moving from
     // the old constructor see:
@@ -48,12 +50,6 @@ public class MinecartMeter extends JavaPlugin {
 //        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
 //        pm.registerEvent(Event.Type.BLOCK_PHYSICS, blockListener, Priority.Normal, this);
 //        pm.registerEvent(Event.Type.BLOCK_CANBUILD, blockListener, Priority.Normal, this);
-//        VEHICLE_ENTER 
-//           Called when a vehicle is entered by a LivingEntity
-//        VEHICLE_EXIT 
-//           Called when a vehicle is exited by a LivingEntity
-//        VEHICLE_MOVE 
-//           Called when a vehicle moves position in the world
 
         // Register our commands
 //        getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
@@ -96,23 +92,38 @@ public class MinecartMeter extends JavaPlugin {
 
     public String worldTimeToString(long world_time) {
         /* huh? +8? woot.. anyway thanks to CommandBook, now we know this */
-        int world_hh = (int)((world_time / 1000) + 8) % 24;
-        int world_mm = (int)(world_time - ((world_time / 1000)*1000))*60/1000;
+        int world_hh = (int) ((world_time / 1000) + 8) % 24;
+        int world_mm = (int) (world_time % 1000) * 60 / 1000;
         return String.format("%02d:%02d", world_hh, world_mm);
     }
 
-/*
-    public boolean isDebugging(final Player player) {
-        if (debugees.containsKey(player)) {
-            return debugees.get(player);
+    public String tripTimeToString(long trip_time) {
+        int week = 1000 * 24 * 7;
+        int day  = 1000 * 24;
+        int hour = 1000;
+
+        int weeks   = (int) trip_time / week;
+        int days    = (int) (trip_time % week) / day;
+        int hours   = (int) ((trip_time % week) % day) / hour;
+        int minutes = (int) (((trip_time % week) % day) % hour) * 60 / 1000;
+
+        // TODO: add config option for short or long format, this is short format
+        if (weeks != 0) {
+            return String.format("%dw %dd %dh %dm", weeks, days, hours, minutes);
+        } else if (days != 0) {
+            return String.format("%dd %dh %dm", days, hours, minutes);
+        } else if (hours != 0) {
+            return String.format("%dh %dm", hours, minutes);
         } else {
-            return false;
+            return String.format("%dm", minutes);
         }
     }
-*/
-/*
-    public void setDebugging(final Player player, final boolean value) {
-        debugees.put(player, value);
+
+    public void setStartIGTime(Player player, long time) {
+        travelIGtimes.put(player.getName(), time);
     }
-*/
+
+    public long getStartIGTime(Player player) {
+        return travelIGtimes.get(player.getName());
+    }
 }
