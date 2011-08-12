@@ -42,8 +42,10 @@ public class MinecartMeterListener extends VehicleListener {
                     plugin.resetDistanceCounter(player);
                     World world = l.getWorld();
                     long world_time = world.getTime();
-                    long world_hh = world_time/1000;
+                    /* huh? +8? woot.. anyway thanks to CommandBook, now we know this */
+                    long world_hh = ((world_time / 1000) + 8) % 24;
                     long world_mm = (world_time - (world_hh*1000))*60/1000;
+
                     System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + world_hh +":"+world_mm);
                     player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
@@ -126,7 +128,8 @@ public class MinecartMeterListener extends VehicleListener {
                 System.out.println("[DEBUG]: player " + player.getName() + "have traveled " + plugin.getDistanceCounter(player) + " meters.");
                 World world = l.getWorld();
                 long world_time = world.getTime();
-                long world_hh = world_time/1000;
+                /* huh? +8? woot.. anyway thanks to CommandBook, now we know this */
+                long world_hh = ((world_time / 1000) + 8) % 24;
                 long world_mm = (world_time - (world_hh*1000))*60/1000;
 
                 System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
