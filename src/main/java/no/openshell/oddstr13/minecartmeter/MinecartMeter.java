@@ -94,6 +94,13 @@ public class MinecartMeter extends JavaPlugin {
         return traveldistances.get(player.getName());
     }
 
+    public String worldTimeToString(long world_time) {
+        /* huh? +8? woot.. anyway thanks to CommandBook, now we know this */
+        int world_hh = (int)((world_time / 1000) + 8) % 24;
+        int world_mm = (int)(world_time - ((world_time / 1000)*1000))*60/1000;
+        return String.format("%02d:%02d", world_hh, world_mm);
+    }
+
 /*
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {
