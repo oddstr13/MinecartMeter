@@ -54,9 +54,11 @@ public class MinecartMeterListener extends VehicleListener {
                     System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                     System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
+
                     player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                     player.sendMessage("[DEBUG]: rl_time_msec: " + rl_time_msec);
+
                 }
             }
         }
@@ -146,6 +148,8 @@ public class MinecartMeterListener extends VehicleListener {
                 long rl_start_time = plugin.getStartRLTime(player);
                 long rl_trip_time = rl_time_msec - rl_start_time;
 
+                String rl_trip_time_string = plugin.rlTripTimeToString(rl_trip_time);
+
                 player.sendMessage("The trip took " + trip_time_string + ".");
                 System.out.println("[DEBUG]: player " + player.getName() + " The trip took " + trip_time_string + ".");
 
@@ -153,11 +157,13 @@ public class MinecartMeterListener extends VehicleListener {
                 System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                 System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
                 System.out.println("[DEBUG]: rl_trip_time: " + rl_trip_time);
+                System.out.println("The trip took : " + rl_trip_time_string + ".");
 
                 player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                 player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                 player.sendMessage("[DEBUG]: rl_time_msec: " + rl_time_msec);
                 player.sendMessage("[DEBUG]: rl_trip_time: " + rl_trip_time);
+                player.sendMessage("[DEBUG]: player " + player.getName() + " The trip took : " + rl_trip_time_string + ".");
             }
         }
 

@@ -119,6 +119,35 @@ public class MinecartMeter extends JavaPlugin {
         }
     }
 
+    public String rlTripTimeToString(long trip_time) {
+        int sec  = 1000;
+        int min  = sec  * 60;
+        int hour = min  * 60;
+        int day  = hour * 24;
+        int week = day  * 7;
+
+        int weeks    = (int) trip_time / week;
+        int days     = (int) (trip_time % week) / day;
+        int hours    = (int) ((trip_time % week) % day) / hour;
+        int minutes  = (int) (((trip_time % week) % day) % hour) / min;
+        int secounds = (int) ((((trip_time % week) % day) % hour) % min) / sec;
+        int msecs    = (int) ((((trip_time % week) % day) % hour) % min) % sec;
+
+        if (weeks != 0) {
+            return String.format("%dw %dd %dh %dm %ds", weeks, days, hours, minutes, secounds);
+        } else if (days != 0) {
+            return String.format("%dd %dh %dm %ds", days, hours, minutes, secounds);
+        } else if (hours != 0) {
+            return String.format("%dh %dm %ds", hours, minutes, secounds);
+        } else if (minutes != 0) {
+            return String.format("%dm %ds", minutes, secounds);
+        } else if (secounds != 0) {
+            return String.format("%d.%ds", secounds, msecs);
+        } else {
+            return String.format("%dms", msecs);
+        }
+    }
+
     public void setStartIGTime(Player player, long time) {
         travelIGtimes.put(player.getName(), time);
     }
