@@ -21,7 +21,7 @@ public class MinecartMeter extends JavaPlugin {
     private final HashMap<String, Location> startlocations = new HashMap<String, Location>();
     private final HashMap<String, Integer> traveldistances = new HashMap<String, Integer>();
     private final HashMap<String, Long> travelIGtimes = new HashMap<String, Long>();
-    private final HashMap<String, Double> travelRLtimes = new HashMap<String, Double>();
+    private final HashMap<String, Long> travelRLtimes = new HashMap<String, Long>();
 
     // NOTE: There should be no need to define a constructor any more for more info on moving from
     // the old constructor see:
@@ -126,4 +126,13 @@ public class MinecartMeter extends JavaPlugin {
     public long getStartIGTime(Player player) {
         return travelIGtimes.get(player.getName());
     }
+
+    public void setStartRLTime(Player player, long time) {
+        travelRLtimes.put(player.getName(), time);
+    }
+
+    public long getStartRLTime(Player player) {
+        return travelRLtimes.get(player.getName());
+    }
+
 }

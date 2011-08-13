@@ -42,17 +42,21 @@ public class MinecartMeterListener extends VehicleListener {
                     World world = l.getWorld();
                     long world_full_time = world.getFullTime();
                     long world_time = world.getTime();
+                    long rl_time_msec = System.currentTimeMillis();
 
                     plugin.setStartLocation(player, l);
                     plugin.resetDistanceCounter(player);
                     plugin.setStartIGTime(player, world_full_time);
+                    plugin.setStartRLTime(player, rl_time_msec);
 
                     String time_string = plugin.worldTimeToString(world_time);
 
                     System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
+                    System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
                     player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
+                    player.sendMessage("[DEBUG]: rl_time_msec: " + rl_time_msec);
                 }
             }
         }
@@ -137,15 +141,23 @@ public class MinecartMeterListener extends VehicleListener {
                 String time_string = plugin.worldTimeToString(world_time);
                 long trip_start_time = plugin.getStartIGTime(player);
                 long trip_time = world_full_time - trip_start_time;
+                long rl_time_msec = System.currentTimeMillis();
                 String trip_time_string = plugin.tripTimeToString(trip_time);
+                long rl_start_time = plugin.getStartRLTime(player);
+                long rl_trip_time = rl_time_msec - rl_start_time;
 
                 player.sendMessage("The trip took " + trip_time_string + ".");
                 System.out.println("[DEBUG]: player " + player.getName() + " The trip took " + trip_time_string + ".");
 
                 System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                 System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
+                System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
+                System.out.println("[DEBUG]: rl_trip_time: " + rl_trip_time);
+
                 player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                 player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
+                player.sendMessage("[DEBUG]: rl_time_msec: " + rl_time_msec);
+                player.sendMessage("[DEBUG]: rl_trip_time: " + rl_trip_time);
             }
         }
 
