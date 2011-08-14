@@ -70,6 +70,7 @@ public class MinecartMeterListener extends VehicleListener {
         handleExitVehicle(vehicle, entity);
     }
 
+    /* not sure if this one is accualy needed... */
     @Override
     public void onVehicleDestroy(VehicleDestroyEvent event) {
         Vehicle vehicle = event.getVehicle();
@@ -93,7 +94,7 @@ public class MinecartMeterListener extends VehicleListener {
         Location from = event.getFrom();
         Location to = event.getTo();
 
-        /* from craftbook's MinecartManager.java */
+        /* from CraftBook's MinecartManager.java */
         boolean crossesBlockBoundary =
                from.getBlockX() == to.getBlockX()
             && from.getBlockY() == to.getBlockY()

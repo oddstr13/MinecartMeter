@@ -22,43 +22,26 @@ public class MinecartMeter extends JavaPlugin {
     private final HashMap<String, Integer> traveldistances = new HashMap<String, Integer>();
     private final HashMap<String, Long> travelIGtimes = new HashMap<String, Long>();
     private final HashMap<String, Long> travelRLtimes = new HashMap<String, Long>();
-
-    // NOTE: There should be no need to define a constructor any more for more info on moving from
-    // the old constructor see:
-    // http://forums.bukkit.org/threads/too-long-constructor.5032/
+    private final PluginDescriptionFile pdfFile = this.getDescription();
 
     public void onDisable() {
-        // TODO: Place any custom disable code here
-
-        // NOTE: All registered events are automatically unregistered when a plugin is disabled
-
-        // EXAMPLE: Custom code, here we just output some info so we can check all is well
-        // TODO: use values from plugin.yml
-        System.out.println("MinecartMeter version 0.0.1 disabled");
+        System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is disabled.");
+        /* might want to empty the hash maps here? to potentialy free up some RAM */
     }
 
     public void onEnable() {
-        // TODO: Place any custom enable code here including the registration of any events
-
-        // Register our events
+        // Register events
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvent(Event.Type.VEHICLE_ENTER, mmListener, Priority.Normal, this);
         pm.registerEvent(Event.Type.VEHICLE_EXIT, mmListener, Priority.Normal, this);
         pm.registerEvent(Event.Type.VEHICLE_DESTROY, mmListener, Priority.Normal, this);
         pm.registerEvent(Event.Type.VEHICLE_MOVE, mmListener, Priority.Normal, this);
-//        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Priority.Normal, this);
-//        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
-//        pm.registerEvent(Event.Type.BLOCK_PHYSICS, blockListener, Priority.Normal, this);
-//        pm.registerEvent(Event.Type.BLOCK_CANBUILD, blockListener, Priority.Normal, this);
 
-        // Register our commands
+        // Register commands
 //        getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
 //        getCommand("debug").setExecutor(new SampleDebugCommand(this));
 
-        // EXAMPLE: Custom code, here we just output some info so we can check all is well
-        PluginDescriptionFile pdfFile = this.getDescription();
-        // TODO: maybe reformat the plugin enabled message?
-        System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
+        System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled.");
     }
 
     public Location getStartLocation(final Player player) {
@@ -90,6 +73,10 @@ public class MinecartMeter extends JavaPlugin {
         return traveldistances.get(player.getName());
     }
 
+   /*
+    * format ingame time to string
+    * takes World.getTime() and outputs String HH:MM
+    */
     public String worldTimeToString(long world_time) {
         /* huh? +8? woot.. anyway thanks to CommandBook, now we know this */
         int world_hh = (int) ((world_time / 1000) + 8) % 24;
@@ -97,6 +84,11 @@ public class MinecartMeter extends JavaPlugin {
         return String.format("%02d:%02d", world_hh, world_mm);
     }
 
+   /*
+    * takes World.getFullTime() - previous_world_full_time
+    * (the difference between two points in time)
+    * and formats it to a (hopefully) human readable string
+    */
     public String tripTimeToString(long trip_time) {
         int week = 1000 * 24 * 7;
         int day  = 1000 * 24;
@@ -119,6 +111,10 @@ public class MinecartMeter extends JavaPlugin {
         }
     }
 
+   /*
+    * takes time in milliseconds between two points in time,
+    * and returns a (hopefully) human readable String
+    */
     public String rlTripTimeToString(long trip_time) {
         int sec  = 1000;
         int min  = sec  * 60;
@@ -163,5 +159,4 @@ public class MinecartMeter extends JavaPlugin {
     public long getStartRLTime(Player player) {
         return travelRLtimes.get(player.getName());
     }
-
 }
