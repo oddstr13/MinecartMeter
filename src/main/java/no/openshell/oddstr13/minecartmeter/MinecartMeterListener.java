@@ -25,8 +25,10 @@ public class MinecartMeterListener extends VehicleListener {
         Vehicle vehicle = event.getVehicle();
         if (vehicle instanceof Minecart) {
             Minecart cart = (Minecart) vehicle;
+            /* Do we have a passenger? :D */
             if (entity instanceof Player) {
                 Entity passenger = cart.getPassenger();
+                /* already a passenger in the minecart when the player enters? something isn't right here */
                 if (passenger instanceof Player) {
                     Player p = (Player) passenger;
                     if (plugin.config.getBoolean("debug", false)) {
@@ -60,18 +62,8 @@ public class MinecartMeterListener extends VehicleListener {
                         System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                         System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
                     }
-/*
-        config.getBoolean("option.clock.departure", true); // show the clock on departure
-        config.getBoolean("option.clock.arrival", true); // show the clock on arrival
 
-        config.getBoolean("format.text.custom.clock.departure.enabled", false);
-        config.getString( "format.text.custom.clock.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
-        config.getString( "format.text.custom.clock.departure.sufix", ". Have a nice ride.");
-
-        config.getBoolean("format.text.custom.clock.arrival.enabled", false);
-        config.getString( "format.text.custom.clock.arrival.prefix", "You arrived at ");
-        config.getString( "format.text.custom.clock.arrival.sufix", ". Thank you for choosing Minecart Railways.");
-*/
+                    /* Send current ingame time to the player when he/she enters the minecart. */
                     if (plugin.config.getBoolean("option.clock.departure", true)) {
                         if (plugin.config.getBoolean("format.text.custom.clock.departure.enabled", false)) {
                             player.sendMessage(plugin.config.getString("format.text.custom.clock.departure.prefix") + time_string + plugin.config.getString("format.text.custom.clock.departure.sufix"));
@@ -191,19 +183,8 @@ public class MinecartMeterListener extends VehicleListener {
                 //player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                 //player.sendMessage("[DEBUG]: rl_time_msec: " + rl_time_msec);
                 //player.sendMessage("[DEBUG]: rl_trip_time: " + rl_trip_time);
-/*
-        config.getBoolean("option.clock.departure", true); // show the clock on departure
-        config.getBoolean("option.clock.arrival", true); // show the clock on arrival
 
-        config.getBoolean("format.text.custom.clock.departure.enabled", false);
-        config.getString( "format.text.custom.clock.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
-        config.getString( "format.text.custom.clock.departure.sufix", ". Have a nice ride.");
-
-        config.getBoolean("format.text.custom.clock.arrival.enabled", false);
-        config.getString( "format.text.custom.clock.arrival.prefix", "You arrived at ");
-        config.getString( "format.text.custom.clock.arrival.sufix", ". Thank you for choosing Minecart Railways.");
-*/
-
+                /* Send current ingame time to the player when he/she exits the minecart. */
                 if (plugin.config.getBoolean("option.clock.arrival", true)) {
                     if (plugin.config.getBoolean("format.text.custom.clock.arrival.enabled", false)) {
                         player.sendMessage(plugin.config.getString("format.text.custom.clock.arrival.prefix") + time_string + plugin.config.getString("format.text.custom.clock.arrival.sufix"));
@@ -212,7 +193,7 @@ public class MinecartMeterListener extends VehicleListener {
                     }
                 }
 
-
+                /* Send the distanse between enter and exit of minecart to the player. */
                 if (plugin.config.getBoolean("option.traveldistanse.air", true)) {
                     if (plugin.config.getBoolean("format.text.custom.traveldistanse.air.enabled", false)) {
                         player.sendMessage(plugin.config.getString("format.text.custom.traveldistanse.air.prefix") + plugin.doubleMetersToString(distance) + plugin.config.getString("format.text.custom.traveldistanse.air.sufix"));
@@ -221,6 +202,7 @@ public class MinecartMeterListener extends VehicleListener {
                     }
                 }
 
+                /* Send the acctual number of blocks the minecart have traveled when the player exits the minecart */
                 if (plugin.config.getBoolean("option.traveldistanse.real", true)) {
                     if (plugin.config.getBoolean("format.text.custom.traveldistanse.real.enabled", false)) {
                         player.sendMessage(plugin.config.getString("format.text.custom.traveldistanse.real.prefix") + plugin.getDistanceCounter(player) + plugin.config.getString("format.text.custom.traveldistanse.real.sufix"));
@@ -229,6 +211,7 @@ public class MinecartMeterListener extends VehicleListener {
                     }
                 }
 
+                /* Send the trip duration in ingame time to the player when he/she exits the minecart. */
                 if (plugin.config.getBoolean("option.traveltime.ingame", true)) {
                     if (plugin.config.getBoolean("format.text.custom.traveltime.ingame.enabled", false)) {
                         player.sendMessage(plugin.config.getString("format.text.custom.traveltime.ingame.prefix") + trip_time_string + plugin.config.getString("format.text.custom.traveltime.ingame.sufix"));
@@ -237,6 +220,7 @@ public class MinecartMeterListener extends VehicleListener {
                     }
                 }
 
+                /* Send the trip duration in real life time to the player when he/she exits the minecart. */
                 if (plugin.config.getBoolean("option.traveltime.real", true)) {
                     if (plugin.config.getBoolean("format.text.custom.traveltime.real.enabled", false)) {
                         player.sendMessage(plugin.config.getString("format.text.custom.traveltime.real.prefix") + rl_trip_time_string + plugin.config.getString( "format.text.custom.traveltime.real.sufix"));
