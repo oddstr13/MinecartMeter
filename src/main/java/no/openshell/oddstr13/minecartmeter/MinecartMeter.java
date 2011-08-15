@@ -24,7 +24,7 @@ public class MinecartMeter extends JavaPlugin {
     private final HashMap<String, Long> travelIGtimes = new HashMap<String, Long>();
     private final HashMap<String, Long> travelRLtimes = new HashMap<String, Long>();
 
-    private final PluginDescriptionFile pdfFile = this.getDescription();
+    private PluginDescriptionFile pdfFile;
     public Configuration config;
 
 
@@ -36,6 +36,7 @@ public class MinecartMeter extends JavaPlugin {
     public void onEnable() {
         // Register events
         PluginManager pm = getServer().getPluginManager();
+        pdfFile = getDescription();
         config = getConfiguration();
         reloadConfig();
         pm.registerEvent(Event.Type.VEHICLE_ENTER, mmListener, Priority.Normal, this);
