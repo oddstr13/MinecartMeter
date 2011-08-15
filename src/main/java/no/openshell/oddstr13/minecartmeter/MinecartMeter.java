@@ -2,6 +2,8 @@ package no.openshell.oddstr13.minecartmeter;
 
 import java.util.HashMap;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event;
@@ -54,11 +56,13 @@ public class MinecartMeter extends JavaPlugin {
     public void reloadConfig() {
 //        config = getConfiguration();
         config.getBoolean("option.traveltime.ingame", true); //show travel time in minecraft time?
-        config.getBoolean("option.traveltime.real", true); // show travel time in real time?
+        config.getBoolean("option.traveltime.real", false); // show travel time in real time?
         config.getBoolean("option.traveldistanse.real", true); // show distanse traveled by rail?
         config.getBoolean("option.traveldistanse.air", true); // show distanse traveled, point-point air distanse
         config.getBoolean("option.clock.departure", true); // show the clock on departure
         config.getBoolean("option.clock.arrival", true); // show the clock on arrival
+        config.getBoolean("option.clock.ingame", true);
+        config.getBoolean("option.clock.real", false);
 //        you arrived at 5:30 PM
 
         config.getInt("format.time.traveltime", 0); // 0=short, 1=long, 2=custom
@@ -100,13 +104,21 @@ public class MinecartMeter extends JavaPlugin {
         config.getString( "format.text.custom.traveldistanse.air.prefix", "You have traveled ");
         config.getString( "format.text.custom.traveldistanse.air.sufix", " meters in direct line.");
 
-        config.getBoolean("format.text.custom.clock.departure.enabled", false);
-        config.getString( "format.text.custom.clock.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
-        config.getString( "format.text.custom.clock.departure.sufix", ". Have a nice ride.");
+        config.getBoolean("format.text.custom.clock.ingame.departure.enabled", false);
+        config.getString( "format.text.custom.clock.ingame.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
+        config.getString( "format.text.custom.clock.ingame.departure.sufix", ". Have a nice ride.");
 
-        config.getBoolean("format.text.custom.clock.arrival.enabled", false);
-        config.getString( "format.text.custom.clock.arrival.prefix", "You arrived at ");
-        config.getString( "format.text.custom.clock.arrival.sufix", ". Thank you for choosing Minecart Railways.");
+        config.getBoolean("format.text.custom.clock.ingame.arrival.enabled", false);
+        config.getString( "format.text.custom.clock.ingame.arrival.prefix", "You arrived at ");
+        config.getString( "format.text.custom.clock.ingame.arrival.sufix", ". Thank you for choosing Minecart Railways.");
+
+        config.getBoolean("format.text.custom.clock.real.departure.enabled", false);
+        config.getString( "format.text.custom.clock.real.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
+        config.getString( "format.text.custom.clock.real.departure.sufix", ". Have a nice ride.");
+
+        config.getBoolean("format.text.custom.clock.real.arrival.enabled", false);
+        config.getString( "format.text.custom.clock.real.arrival.prefix", "You arrived at ");
+        config.getString( "format.text.custom.clock.real.arrival.sufix", ". Thank you for choosing Minecart Railways.");
 
         config.getBoolean("debug", false);
         config.save();
@@ -167,6 +179,24 @@ public class MinecartMeter extends JavaPlugin {
         }
     }
 
+    public String realTimeToString() {
+        /* http://www.rgagnon.com/javadetails/java-0106.html */
+        String DATE_FORMAT_NOW;
+        Calendar cal = Calendar.getInstance();
+        if (config.getBoolean("format.time.24hour", true)) {
+            DATE_FORMAT_NOW = "HH:mm:ss";
+        } else {
+            DATE_FORMAT_NOW = "h:mm:ss a";
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        if (config.getBoolean("format.time.upperAMPM", false)) {
+            return sdf.format(cal.getTime()).toUpperCase();
+        } else {
+            return sdf.format(cal.getTime()).toLowerCase();
+        }
+    }
+
    /*
     * takes World.getFullTime() - previous_world_full_time
     * (the difference between two points in time)
@@ -182,7 +212,6 @@ public class MinecartMeter extends JavaPlugin {
         int hours   = (int) ((trip_time % week) % day) / hour;
         int minutes = (int) (((trip_time % week) % day) % hour) * 60 / 1000;
 
-        // TODO: add config option for short or long format, this is short format
         // 0=short, 1=long, 2=custom
         int format_type = config.getInt("format.time.traveltime", 0);
 

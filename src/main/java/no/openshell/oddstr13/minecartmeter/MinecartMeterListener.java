@@ -65,10 +65,20 @@ public class MinecartMeterListener extends VehicleListener {
 
                     /* Send current ingame time to the player when he/she enters the minecart. */
                     if (plugin.config.getBoolean("option.clock.departure", true)) {
-                        if (plugin.config.getBoolean("format.text.custom.clock.departure.enabled", false)) {
-                            player.sendMessage(plugin.config.getString("format.text.custom.clock.departure.prefix") + time_string + plugin.config.getString("format.text.custom.clock.departure.sufix"));
-                        } else {
-                            player.sendMessage("Welcome to Minecart Railways, the clock is now " + time_string + ". Have a nice ride.");
+                        if (plugin.config.getBoolean("option.clock.ingame", true)) {
+                            if (plugin.config.getBoolean("format.text.custom.clock.ingame.departure.enabled", false)) {
+                                player.sendMessage(plugin.config.getString("format.text.custom.clock.ingame.departure.prefix") + time_string + plugin.config.getString("format.text.custom.clock.ingame.departure.sufix"));
+                            } else {
+                                player.sendMessage("Welcome to Minecart Railways, the clock is now " + time_string + ". Have a nice ride.");
+                            }
+                        }
+                        if (plugin.config.getBoolean("option.clock.real", true)) {
+                            String real_time_string = plugin.realTimeToString();
+                            if (plugin.config.getBoolean("format.text.custom.clock.real.departure.enabled", false)) {
+                                player.sendMessage(plugin.config.getString("format.text.custom.clock.real.departure.prefix") + real_time_string + plugin.config.getString("format.text.custom.clock.real.departure.sufix"));
+                            } else {
+                                player.sendMessage("Welcome to Minecart Railways, the clock is now " + real_time_string + ". Have a nice ride.");
+                            }
                         }
                     }
 
@@ -186,10 +196,20 @@ public class MinecartMeterListener extends VehicleListener {
 
                 /* Send current ingame time to the player when he/she exits the minecart. */
                 if (plugin.config.getBoolean("option.clock.arrival", true)) {
-                    if (plugin.config.getBoolean("format.text.custom.clock.arrival.enabled", false)) {
-                        player.sendMessage(plugin.config.getString("format.text.custom.clock.arrival.prefix") + time_string + plugin.config.getString("format.text.custom.clock.arrival.sufix"));
-                    } else {
-                        player.sendMessage("You arrived at " + time_string + ". Thank you for choosing Minecart Railways.");
+                    if (plugin.config.getBoolean("option.clock.ingame", true)) {
+                        if (plugin.config.getBoolean("format.text.custom.clock.ingame.arrival.enabled", false)) {
+                            player.sendMessage(plugin.config.getString("format.text.custom.clock.ingame.arrival.prefix") + time_string + plugin.config.getString("format.text.custom.clock.ingame.arrival.sufix"));
+                        } else {
+                            player.sendMessage("You arrived at " + time_string + ". Thank you for choosing Minecart Railways.");
+                        }
+                    }
+                    if (plugin.config.getBoolean("option.clock.real", true)) {
+                        String real_time_string = plugin.realTimeToString();
+                        if (plugin.config.getBoolean("format.text.custom.clock.real.arrival.enabled", false)) {
+                            player.sendMessage(plugin.config.getString("format.text.custom.clock.real.arrival.prefix") + real_time_string + plugin.config.getString("format.text.custom.clock.real.arrival.sufix"));
+                        } else {
+                            player.sendMessage("You arrived at " + real_time_string + ". Thank you for choosing Minecart Railways.");
+                        }
                     }
                 }
 
