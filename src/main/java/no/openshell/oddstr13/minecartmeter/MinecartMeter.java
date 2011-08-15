@@ -153,6 +153,9 @@ public class MinecartMeter extends JavaPlugin {
             return String.format("%02d:%02d", world_hh, world_mm);
         } else {
             int world_h = world_hh % 12;
+            if (world_h == 0) {
+                world_h = 12;
+            }
             String am_pm = "am";
             if ((world_hh / 12) != 0) {
                 am_pm = "pm";
