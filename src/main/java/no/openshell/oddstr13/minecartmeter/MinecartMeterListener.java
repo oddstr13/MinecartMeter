@@ -29,15 +29,19 @@ public class MinecartMeterListener extends VehicleListener {
                 Entity passenger = cart.getPassenger();
                 if (passenger instanceof Player) {
                     Player p = (Player) passenger;
-                    System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
-                    System.out.println("[DEBUG]: This is most likly a ghost event.");
+                    if (plugin.config.getBoolean("debug", false)) {
+                        System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
+                        System.out.println("[DEBUG]: This is most likly a ghost event.");
+                    }
                 } else {
                     Player player = (Player) entity;
                     Location l = cart.getLocation();
                     String msg = "entered minecart with entityId " + cart.getEntityId() + 
                       " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
                     //player.sendMessage("[DEBUG]: You " + msg);
-                    System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+                    if (plugin.config.getBoolean("debug", false)) {
+                        System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+                    }
 
                     World world = l.getWorld();
                     long world_full_time = world.getFullTime();
@@ -51,9 +55,11 @@ public class MinecartMeterListener extends VehicleListener {
 
                     String time_string = plugin.worldTimeToString(world_time);
 
-                    System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
-                    System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
-                    System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
+                    if (plugin.config.getBoolean("debug", false)) {
+                        System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
+                        System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
+                        System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
+                    }
 
                     //player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     //player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
@@ -81,8 +87,9 @@ public class MinecartMeterListener extends VehicleListener {
                 Entity entity = cart.getPassenger();
                 if (entity instanceof Player) {
                     Player player = (Player) entity;
-                    System.out.println("[DEBUG]: minecart " + cart.getEntityId() + " destroyed, passenger " + player.getName() + " ejected.");
-                    
+                    if (plugin.config.getBoolean("debug", false)) {
+                        System.out.println("[DEBUG]: minecart " + cart.getEntityId() + " destroyed, passenger " + player.getName() + " ejected.");
+                    }
                 }
             }
         }
@@ -123,11 +130,15 @@ public class MinecartMeterListener extends VehicleListener {
                 String msg = "exited minecart with entityId " + cart.getEntityId() +
                   " at location " + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ();
                 //player.sendMessage("[DEBUG]: You " + msg);
-                System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+                if (plugin.config.getBoolean("debug", false)) {
+                    System.out.println("[DEBUG]: " + player.getDisplayName() + "(" + player.getName() + ") " + msg);
+                }
                 Entity passenger = cart.getPassenger();
                 if (passenger instanceof Player) {
                     Player p = (Player) passenger;
-                    System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
+                    if (plugin.config.getBoolean("debug", false)) {
+                        System.out.println("[DEBUG]: Passenger of minecart " + cart.getEntityId() + " is " + p.getName());
+                    }
                 }
                 Location startlocation = plugin.getStartLocation(player);
                 Double distance = l.distance(startlocation);
@@ -145,24 +156,55 @@ public class MinecartMeterListener extends VehicleListener {
 
                 String rl_trip_time_string = plugin.rlTripTimeToString(rl_trip_time);
 
-                System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
-                System.out.println("[DEBUG]: player " + player.getName() + "have traveled " + plugin.getDistanceCounter(player) + " meters.");
-                System.out.println("[DEBUG]: player " + player.getName() + " The trip took " + trip_time_string + ".");
-                System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
-                System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
-                System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
-                System.out.println("[DEBUG]: rl_trip_time: " + rl_trip_time);
-                System.out.println("[DEBUG]: player " + player.getName() + "The trip took " + rl_trip_time_string + ".");
+                if (plugin.config.getBoolean("debug", false)) {
+                    System.out.println("[DEBUG]: player " + player.getName() + " have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line by railroad.");
+                    System.out.println("[DEBUG]: player " + player.getName() + "have traveled " + plugin.getDistanceCounter(player) + " meters.");
+                    System.out.println("[DEBUG]: player " + player.getName() + " The trip took " + trip_time_string + ".");
+                    System.out.println("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
+                    System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
+                    System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
+                    System.out.println("[DEBUG]: rl_trip_time: " + rl_trip_time);
+                    System.out.println("[DEBUG]: player " + player.getName() + "The trip took " + rl_trip_time_string + ".");
+                }
 
                 //player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                 //player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                 //player.sendMessage("[DEBUG]: rl_time_msec: " + rl_time_msec);
                 //player.sendMessage("[DEBUG]: rl_trip_time: " + rl_trip_time);
+/*
+*/
 
-                player.sendMessage("You have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line.");
-                player.sendMessage("You have traveled " + plugin.getDistanceCounter(player) + " meters by railroad.");
-                player.sendMessage("The trip took " + trip_time_string + ".");
-                player.sendMessage("The trip took  " + rl_trip_time_string + ".");
+                if (plugin.config.getBoolean("option.traveldistanse.air", true)) {
+                    if (plugin.config.getBoolean("format.text.custom.traveldistanse.air.enabled", false)) {
+                        player.sendMessage(plugin.config.getString("format.text.custom.traveldistanse.air.prefix") + plugin.doubleMetersToString(distance) + plugin.config.getString("format.text.custom.traveldistanse.air.sufix"));
+                    } else {
+                        player.sendMessage("You have traveled " + plugin.doubleMetersToString(distance) + " meters in direct line.");
+                    }
+                }
+
+                if (plugin.config.getBoolean("option.traveldistanse.real", true)) {
+                    if (plugin.config.getBoolean("format.text.custom.traveldistanse.real.enabled", false)) {
+                        player.sendMessage(plugin.config.getString("format.text.custom.traveldistanse.real.prefix") + plugin.getDistanceCounter(player) + plugin.config.getString("format.text.custom.traveldistanse.real.sufix"));
+                    } else {
+                        player.sendMessage("You have traveled " + plugin.getDistanceCounter(player) + " meters by railroad.");
+                    }
+                }
+
+                if (plugin.config.getBoolean("option.traveltime.ingame", true)) {
+                    if (plugin.config.getBoolean("format.text.custom.traveltime.ingame.enabled", false)) {
+                        player.sendMessage(plugin.config.getString("format.text.custom.traveltime.ingame.prefix") + trip_time_string + plugin.config.getString("format.text.custom.traveltime.ingame.sufix"));
+                    } else {
+                        player.sendMessage("The trip took " + trip_time_string + ".");
+                    }
+                }
+
+                if (plugin.config.getBoolean("option.traveltime.real", true)) {
+                    if (plugin.config.getBoolean("format.text.custom.traveltime.real.enabled", false)) {
+                        player.sendMessage(plugin.config.getString("format.text.custom.traveltime.real.prefix") + rl_trip_time_string + plugin.config.getString( "format.text.custom.traveltime.real.sufix"));
+                    } else {
+                        player.sendMessage("The trip took " + rl_trip_time_string + ".");
+                    }
+                }
             }
         }
     }
