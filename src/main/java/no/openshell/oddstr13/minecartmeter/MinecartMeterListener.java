@@ -60,6 +60,26 @@ public class MinecartMeterListener extends VehicleListener {
                         System.out.println("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
                         System.out.println("[DEBUG]: rl_time_msec: " + rl_time_msec);
                     }
+/*
+        config.getBoolean("option.clock.departure", true); // show the clock on departure
+        config.getBoolean("option.clock.arrival", true); // show the clock on arrival
+
+        config.getBoolean("format.text.custom.clock.departure.enabled", false);
+        config.getString( "format.text.custom.clock.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
+        config.getString( "format.text.custom.clock.departure.sufix", ". Have a nice ride.");
+
+        config.getBoolean("format.text.custom.clock.arrival.enabled", false);
+        config.getString( "format.text.custom.clock.arrival.prefix", "You arrived at ");
+        config.getString( "format.text.custom.clock.arrival.sufix", ". Thank you for choosing Minecart Railways.");
+*/
+                    if (plugin.config.getBoolean("option.clock.departure", true)) {
+                        if (plugin.config.getBoolean("format.text.custom.clock.departure.enabled", false)) {
+                            player.sendMessage(plugin.config.getString("format.text.custom.clock.departure.prefix") + time_string + plugin.config.getString("format.text.custom.clock.departure.sufix"));
+                        } else {
+                            player.sendMessage("Welcome to Minecart Railways, the clock is now " + time_string + ". Have a nice ride.");
+                        }
+                    }
+
 
                     //player.sendMessage("[DEBUG]: full time of " + world.getName() + ": " + world.getFullTime());
                     //player.sendMessage("[DEBUG]: time of " + world.getName() + ": " + world.getTime()+ " " + time_string);
@@ -172,7 +192,26 @@ public class MinecartMeterListener extends VehicleListener {
                 //player.sendMessage("[DEBUG]: rl_time_msec: " + rl_time_msec);
                 //player.sendMessage("[DEBUG]: rl_trip_time: " + rl_trip_time);
 /*
+        config.getBoolean("option.clock.departure", true); // show the clock on departure
+        config.getBoolean("option.clock.arrival", true); // show the clock on arrival
+
+        config.getBoolean("format.text.custom.clock.departure.enabled", false);
+        config.getString( "format.text.custom.clock.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
+        config.getString( "format.text.custom.clock.departure.sufix", ". Have a nice ride.");
+
+        config.getBoolean("format.text.custom.clock.arrival.enabled", false);
+        config.getString( "format.text.custom.clock.arrival.prefix", "You arrived at ");
+        config.getString( "format.text.custom.clock.arrival.sufix", ". Thank you for choosing Minecart Railways.");
 */
+
+                if (plugin.config.getBoolean("option.clock.arrival", true)) {
+                    if (plugin.config.getBoolean("format.text.custom.clock.arrival.enabled", false)) {
+                        player.sendMessage(plugin.config.getString("format.text.custom.clock.arrival.prefix") + time_string + plugin.config.getString("format.text.custom.clock.arrival.sufix"));
+                    } else {
+                        player.sendMessage("You arrived at " + time_string + ". Thank you for choosing Minecart Railways.");
+                    }
+                }
+
 
                 if (plugin.config.getBoolean("option.traveldistanse.air", true)) {
                     if (plugin.config.getBoolean("format.text.custom.traveldistanse.air.enabled", false)) {

@@ -57,6 +57,9 @@ public class MinecartMeter extends JavaPlugin {
         config.getBoolean("option.traveltime.real", true); // show travel time in real time?
         config.getBoolean("option.traveldistanse.real", true); // show distanse traveled by rail?
         config.getBoolean("option.traveldistanse.air", true); // show distanse traveled, point-point air distanse
+        config.getBoolean("option.clock.departure", true); // show the clock on departure
+        config.getBoolean("option.clock.arrival", true); // show the clock on arrival
+//        you arrived at 5:30 PM
 
         config.getInt("format.time.traveltime", 0); // 0=short, 1=long, 2=custom
         config.getBoolean("format.time.24hour", true); // true=24hour clock, false=am/pm
@@ -97,7 +100,15 @@ public class MinecartMeter extends JavaPlugin {
         config.getString( "format.text.custom.traveldistanse.air.prefix", "You have traveled ");
         config.getString( "format.text.custom.traveldistanse.air.sufix", " meters in direct line.");
 
-        config.getBoolean("debug", true);
+        config.getBoolean("format.text.custom.clock.departure.enabled", false);
+        config.getString( "format.text.custom.clock.departure.prefix", "Welcome to Minecart Railways, the clock is now ");
+        config.getString( "format.text.custom.clock.departure.sufix", ". Have a nice ride.");
+
+        config.getBoolean("format.text.custom.clock.arrival.enabled", false);
+        config.getString( "format.text.custom.clock.arrival.prefix", "You arrived at ");
+        config.getString( "format.text.custom.clock.arrival.sufix", ". Thank you for choosing Minecart Railways.");
+
+        config.getBoolean("debug", false);
         config.save();
     }
 
