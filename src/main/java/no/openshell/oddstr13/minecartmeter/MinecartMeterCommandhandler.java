@@ -40,7 +40,7 @@ public class MinecartMeterCommandhandler implements CommandExecutor {
 
         if (split.length == 1) {
             if (isconsolle || isop) {
-                if (split[1].equalsIgnoreCase("reload")) {
+                if (split[0].equalsIgnoreCase("reload")) {
                     if (debug) {
                         System.out.println("[DEBUG]: reloading config");
                     }
