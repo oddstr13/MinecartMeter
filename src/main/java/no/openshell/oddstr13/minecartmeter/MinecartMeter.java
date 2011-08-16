@@ -43,7 +43,6 @@ public class MinecartMeter extends JavaPlugin {
         reloadConfig();
         pm.registerEvent(Event.Type.VEHICLE_ENTER, mmListener, Priority.Normal, this);
         pm.registerEvent(Event.Type.VEHICLE_EXIT, mmListener, Priority.Normal, this);
-        pm.registerEvent(Event.Type.VEHICLE_DESTROY, mmListener, Priority.Normal, this);
         pm.registerEvent(Event.Type.VEHICLE_MOVE, mmListener, Priority.Normal, this);
 
         // Register commands

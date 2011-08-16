@@ -98,25 +98,6 @@ public class MinecartMeterListener extends VehicleListener {
         handleExitVehicle(vehicle, entity);
     }
 
-    /* not sure if this one is accualy needed... */
-    @Override
-    public void onVehicleDestroy(VehicleDestroyEvent event) {
-        Vehicle vehicle = event.getVehicle();
-        if (vehicle instanceof Minecart) {
-            Minecart cart = (Minecart) vehicle;
-            Location l = cart.getLocation();
-            if (!cart.isEmpty()) {
-                Entity entity = cart.getPassenger();
-                if (entity instanceof Player) {
-                    Player player = (Player) entity;
-                    if (plugin.config.getBoolean("debug", false)) {
-                        System.out.println("[DEBUG]: minecart " + cart.getEntityId() + " destroyed, passenger " + player.getName() + " ejected.");
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public void onVehicleMove(VehicleMoveEvent event) {
         Vehicle vehicle = event.getVehicle();
