@@ -34,7 +34,7 @@ public class MinecartMeterCommandhandler implements CommandExecutor {
             player = (Player)sender;
             isop = player.isOp();
             isplayer = true;
-        } else if (sender instanceof ConsoleCommandSender) {
+        } else {
             isconsolle = true;
         }
 
