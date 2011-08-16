@@ -1,5 +1,2 @@
- * add "/minecartmeter reload" command, for reloading configuration
  * optimalize the code
- * make a commented version of the config
  * add javadoc comments
- * make forum post
