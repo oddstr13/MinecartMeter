@@ -46,7 +46,7 @@ public class MinecartMeter extends JavaPlugin {
         pm.registerEvent(Event.Type.VEHICLE_MOVE, mmListener, Priority.Normal, this);
 
         // Register commands
-        getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
+        this.getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
 //        getCommand("debug").setExecutor(new SampleDebugCommand(this));
 
         System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled.");
