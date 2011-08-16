@@ -1,6 +1,7 @@
 package no.openshell.oddstr13.minecartmeter;
 
 import java.util.HashMap;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,13 +48,13 @@ public class MinecartMeter extends JavaPlugin {
 
         // Register commands
         getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
-//              getCommand("debug").setExecutor(new SampleDebugCommand(this));
 
         System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled.");
     }
 
     public void reloadConfig() {
-//        config = getConfiguration();
+        config = new Configuration(new File(getDataFolder().getPath() + "/config.yml"));
+        config.load();
         config.getBoolean("option.traveltime.ingame", true); //show travel time in minecraft time?
         config.getBoolean("option.traveltime.real", false); // show travel time in real time?
         config.getBoolean("option.traveldistanse.real", true); // show distanse traveled by rail?
@@ -62,7 +63,6 @@ public class MinecartMeter extends JavaPlugin {
         config.getBoolean("option.clock.arrival", true); // show the clock on arrival
         config.getBoolean("option.clock.ingame", true);
         config.getBoolean("option.clock.real", false);
-//        you arrived at 5:30 PM
 
         config.getInt("format.time.traveltime", 0); // 0=short, 1=long, 2=custom
         config.getBoolean("format.time.24hour", true); // true=24hour clock, false=am/pm
