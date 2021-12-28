@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>no.openshell.oddstr13</groupId>
 	<artifactId>minecartmeter</artifactId>
@@ -11,8 +10,9 @@
 	<properties>
 		<revision>1.1.0-SNAPSHOT</revision>
 		<java.version>1.8</java.version>
-		<minecraft_version>1.8.8</minecraft_version>
-		<spigot_version>${minecraft_version}-R0.1-SNAPSHOT</spigot_version>
+		<minecraft.version>1.18.1</minecraft.version>
+		<minecraft.api>spigot</minecraft.api> <!-- This default is not taken into account for profile activation -->
+		<minecraft.api.version>${minecraft.version}-R0.1-SNAPSHOT</minecraft.api.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -30,14 +30,43 @@
 		</plugins>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>${spigot_version}</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+	<profiles>
+		<profile>
+			<id>target-spigot</id>
+			<activation>
+				<activeByDefault>true</activeByDefault> <!-- This is what determines the default profile, not project properties-->
+				<property>
+					<name>minecraft.api</name>
+					<value>spigot</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.spigotmc</groupId>
+					<artifactId>spigot-api</artifactId>
+					<version>${minecraft.api.version}</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>target-bukkit</id>
+			<activation>
+				<property>
+					<name>minecraft.api</name>
+					<value>bukkit</value>
+				</property>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.spigotmc</groupId>
+					<artifactId>spigot-api</artifactId>
+					<version>${minecraft.api.version}</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 
 	<repositories>
