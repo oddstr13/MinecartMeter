@@ -1,0 +1,82 @@
+option:
+  traveltime:
+    # show travel time in minecraft time?
+    ingame: true
+    # show travel time in real time?
+    real: false
+  traveldistanse:
+    # show distanse traveled by rail?
+    real: true
+    # show distanse traveled, point-point air distanse
+    air: true
+  clock:
+    # show the clock on departure
+    departure: true
+    # show the clock on arrival
+    arrival: true
+    ingame: true
+    real: false
+format:
+  time:
+    # 0=short, 1=long, 2=custom
+    traveltime: 0
+    # true=24hour clock, false=am/pm
+    24hour: true
+    # true=AM/PM, false=am/pm
+    upperAMPM: false
+    custom:
+      prefix: ''
+      sufix: ''
+      seperator: ', '
+      lastseperator: ' and '
+      week: ' Week'
+      weeks: ' Weeks'
+      day: ' Day'
+      days: ' Days'
+      hour: ' Hour'
+      hours: ' Hours'
+      minute: ' Minute'
+      minutes: ' Minutes'
+      second: ' Second'
+      seconds: ' Seconds'
+      millisecond: ' Millisecond'
+      milliseconds: ' Milliseconds'
+  text:
+    custom:
+      traveltime:
+        ingame:
+          enabled: false
+          prefix: 'The trip took '
+          sufix: .
+        real:
+          enabled: false
+          prefix: 'The trip took '
+          sufix: .
+      traveldistanse:
+        real:
+          enabled: false
+          prefix: 'You have traveled '
+          sufix: ' meters by railroad.'
+        air:
+          enabled: false
+          prefix: 'You have traveled '
+          sufix: ' meters in direct line.'
+      clock:
+        ingame:
+          departure:
+            enabled: false
+            prefix: 'Welcome to Minecart Railways, the clock is now '
+            sufix: . Have a nice ride.
+          arrival:
+            enabled: false
+            prefix: 'You arrived at '
+            sufix: . Thank you for choosing Minecart Railways.
+        real:
+          departure:
+            enabled: false
+            prefix: 'Welcome to Minecart Railways, the clock is now '
+            sufix: . Have a nice ride.
+          arrival:
+            enabled: false
+            prefix: 'You arrived at '
+            sufix: . Thank you for choosing Minecart Railways.

@@ -1,6 +1,7 @@
+api-version: 1.13
 main: "no.openshell.oddstr13.minecartmeter.MinecartMeter"
 name: "MinecartMeter"
-version: "1.0.0"
+version: ${project.version}
 description: "See how far the minecart trip brought you, and the time it took."
 author: "Oddstr13"
 website: "https://github.com/oddstr13/MinecartMeter"

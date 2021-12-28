@@ -2,6 +2,8 @@ package no.openshell.oddstr13.minecartmeter;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Vehicle;
@@ -13,14 +15,14 @@ import org.bukkit.entity.Player;
  *
  * @author Oddstr13
  */
-public class MinecartMeterListener extends VehicleListener {
+public class MinecartMeterListener implements Listener {
 	private final MinecartMeter plugin;
 
 	public MinecartMeterListener(MinecartMeter instance) {
 		plugin = instance;
 	}
 
-	@Override
+	@EventHandler
 	public void onVehicleEnter(VehicleEnterEvent event) {
 		Entity entity = event.getEntered();
 		Vehicle vehicle = event.getVehicle();
@@ -104,14 +106,14 @@ public class MinecartMeterListener extends VehicleListener {
 		}
 	}
 
-	@Override
+	@EventHandler
 	public void onVehicleExit(VehicleExitEvent event) {
 		Entity entity = event.getExited();
 		Vehicle vehicle = event.getVehicle();
 		handleExitVehicle(vehicle, entity);
 	}
 
-	@Override
+	@EventHandler
 	public void onVehicleMove(VehicleMoveEvent event) {
 		Vehicle vehicle = event.getVehicle();
 		Location from = event.getFrom();

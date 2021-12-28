@@ -1,18 +1,15 @@
 package no.openshell.oddstr13.minecartmeter;
 
 import java.util.HashMap;
-import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.Location;
-import org.bukkit.util.config.Configuration;
+import org.bukkit.configuration.Configuration;
 
 /**
  * MinecartMeter
@@ -40,11 +37,8 @@ public class MinecartMeter extends JavaPlugin {
 		// Register events
 		PluginManager pm = getServer().getPluginManager();
 		pdfFile = getDescription();
-		config = getConfiguration();
-		reloadConfig();
-		pm.registerEvent(Event.Type.VEHICLE_ENTER, mmListener, Priority.Normal, this);
-		pm.registerEvent(Event.Type.VEHICLE_EXIT, mmListener, Priority.Normal, this);
-		pm.registerEvent(Event.Type.VEHICLE_MOVE, mmListener, Priority.Normal, this);
+		refreshConfigFile();
+		pm.registerEvents(mmListener, this);
 
 		// Register commands
 		getCommand("minecartmeter").setExecutor(new MinecartMeterCommandhandler(this));
@@ -52,77 +46,78 @@ public class MinecartMeter extends JavaPlugin {
 		System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled.");
 	}
 
-	public void reloadConfig() {
-		config = new Configuration(new File(getDataFolder().getPath() + "/config.yml"));
-		config.load();
-		config.getBoolean("option.traveltime.ingame", true); // show travel time in minecraft time?
-		config.getBoolean("option.traveltime.real", false); // show travel time in real time?
-		config.getBoolean("option.traveldistanse.real", true); // show distanse traveled by rail?
-		config.getBoolean("option.traveldistanse.air", true); // show distanse traveled, point-point air distanse
-		config.getBoolean("option.clock.departure", true); // show the clock on departure
-		config.getBoolean("option.clock.arrival", true); // show the clock on arrival
-		config.getBoolean("option.clock.ingame", true);
-		config.getBoolean("option.clock.real", false);
+	public void refreshConfigFile() {
+		saveDefaultConfig();
 
-		config.getInt("format.time.traveltime", 0); // 0=short, 1=long, 2=custom
-		config.getBoolean("format.time.24hour", true); // true=24hour clock, false=am/pm
-		config.getBoolean("format.time.upperAMPM", false); // true=AM/PM, false=am/pm
+		config = getConfig();
 
-		config.getString("format.time.custom.prefix", "");
-		config.getString("format.time.custom.sufix", "");
-		config.getString("format.time.custom.seperator", ", ");
-		config.getString("format.time.custom.lastseperator", " and ");
+		config.addDefault("option.traveltime.ingame", true); // show travel time in minecraft time?
+		config.addDefault("option.traveltime.real", false); // show travel time in real time?
+		config.addDefault("option.traveldistanse.real", true); // show distanse traveled by rail?
+		config.addDefault("option.traveldistanse.air", true); // show distanse traveled, point-point air distanse
+		config.addDefault("option.clock.departure", true); // show the clock on departure
+		config.addDefault("option.clock.arrival", true); // show the clock on arrival
+		config.addDefault("option.clock.ingame", true);
+		config.addDefault("option.clock.real", false);
 
-		config.getString("format.time.custom.week", " Week");
-		config.getString("format.time.custom.weeks", " Weeks");
-		config.getString("format.time.custom.day", " Day");
-		config.getString("format.time.custom.days", " Days");
-		config.getString("format.time.custom.hour", " Hour");
-		config.getString("format.time.custom.hours", " Hours");
-		config.getString("format.time.custom.minute", " Minute");
-		config.getString("format.time.custom.minutes", " Minutes");
-		config.getString("format.time.custom.second", " Second");
-		config.getString("format.time.custom.seconds", " Seconds");
-		config.getString("format.time.custom.millisecond", " Millisecond");
-		config.getString("format.time.custom.milliseconds", " Milliseconds");
+		config.addDefault("format.time.traveltime", 0); // 0=short, 1=long, 2=custom
+		config.addDefault("format.time.24hour", true); // true=24hour clock, false=am/pm
+		config.addDefault("format.time.upperAMPM", false); // true=AM/PM, false=am/pm
 
-		config.getBoolean("format.text.custom.traveltime.ingame.enabled", false);
-		config.getString("format.text.custom.traveltime.ingame.prefix", "The trip took ");
-		config.getString("format.text.custom.traveltime.ingame.sufix", ".");
+		config.addDefault("format.time.custom.prefix", "");
+		config.addDefault("format.time.custom.sufix", "");
+		config.addDefault("format.time.custom.seperator", ", ");
+		config.addDefault("format.time.custom.lastseperator", " and ");
 
-		config.getBoolean("format.text.custom.traveltime.real.enabled", false);
-		config.getString("format.text.custom.traveltime.real.prefix", "The trip took ");
-		config.getString("format.text.custom.traveltime.real.sufix", ".");
+		config.addDefault("format.time.custom.week", " Week");
+		config.addDefault("format.time.custom.weeks", " Weeks");
+		config.addDefault("format.time.custom.day", " Day");
+		config.addDefault("format.time.custom.days", " Days");
+		config.addDefault("format.time.custom.hour", " Hour");
+		config.addDefault("format.time.custom.hours", " Hours");
+		config.addDefault("format.time.custom.minute", " Minute");
+		config.addDefault("format.time.custom.minutes", " Minutes");
+		config.addDefault("format.time.custom.second", " Second");
+		config.addDefault("format.time.custom.seconds", " Seconds");
+		config.addDefault("format.time.custom.millisecond", " Millisecond");
+		config.addDefault("format.time.custom.milliseconds", " Milliseconds");
 
-		config.getBoolean("format.text.custom.traveldistanse.real.enabled", false);
-		config.getString("format.text.custom.traveldistanse.real.prefix", "You have traveled ");
-		config.getString("format.text.custom.traveldistanse.real.sufix", " meters by railroad.");
+		config.addDefault("format.text.custom.traveltime.ingame.enabled", false);
+		config.addDefault("format.text.custom.traveltime.ingame.prefix", "The trip took ");
+		config.addDefault("format.text.custom.traveltime.ingame.sufix", ".");
 
-		config.getBoolean("format.text.custom.traveldistanse.air.enabled", false);
-		config.getString("format.text.custom.traveldistanse.air.prefix", "You have traveled ");
-		config.getString("format.text.custom.traveldistanse.air.sufix", " meters in direct line.");
+		config.addDefault("format.text.custom.traveltime.real.enabled", false);
+		config.addDefault("format.text.custom.traveltime.real.prefix", "The trip took ");
+		config.addDefault("format.text.custom.traveltime.real.sufix", ".");
 
-		config.getBoolean("format.text.custom.clock.ingame.departure.enabled", false);
-		config.getString("format.text.custom.clock.ingame.departure.prefix",
+		config.addDefault("format.text.custom.traveldistanse.real.enabled", false);
+		config.addDefault("format.text.custom.traveldistanse.real.prefix", "You have traveled ");
+		config.addDefault("format.text.custom.traveldistanse.real.sufix", " meters by railroad.");
+
+		config.addDefault("format.text.custom.traveldistanse.air.enabled", false);
+		config.addDefault("format.text.custom.traveldistanse.air.prefix", "You have traveled ");
+		config.addDefault("format.text.custom.traveldistanse.air.sufix", " meters in direct line.");
+
+		config.addDefault("format.text.custom.clock.ingame.departure.enabled", false);
+		config.addDefault("format.text.custom.clock.ingame.departure.prefix",
 				"Welcome to Minecart Railways, the clock is now ");
-		config.getString("format.text.custom.clock.ingame.departure.sufix", ". Have a nice ride.");
+		config.addDefault("format.text.custom.clock.ingame.departure.sufix", ". Have a nice ride.");
 
-		config.getBoolean("format.text.custom.clock.ingame.arrival.enabled", false);
-		config.getString("format.text.custom.clock.ingame.arrival.prefix", "You arrived at ");
-		config.getString("format.text.custom.clock.ingame.arrival.sufix",
+		config.addDefault("format.text.custom.clock.ingame.arrival.enabled", false);
+		config.addDefault("format.text.custom.clock.ingame.arrival.prefix", "You arrived at ");
+		config.addDefault("format.text.custom.clock.ingame.arrival.sufix",
 				". Thank you for choosing Minecart Railways.");
 
-		config.getBoolean("format.text.custom.clock.real.departure.enabled", false);
-		config.getString("format.text.custom.clock.real.departure.prefix",
+		config.addDefault("format.text.custom.clock.real.departure.enabled", false);
+		config.addDefault("format.text.custom.clock.real.departure.prefix",
 				"Welcome to Minecart Railways, the clock is now ");
-		config.getString("format.text.custom.clock.real.departure.sufix", ". Have a nice ride.");
+		config.addDefault("format.text.custom.clock.real.departure.sufix", ". Have a nice ride.");
 
-		config.getBoolean("format.text.custom.clock.real.arrival.enabled", false);
-		config.getString("format.text.custom.clock.real.arrival.prefix", "You arrived at ");
-		config.getString("format.text.custom.clock.real.arrival.sufix", ". Thank you for choosing Minecart Railways.");
+		config.addDefault("format.text.custom.clock.real.arrival.enabled", false);
+		config.addDefault("format.text.custom.clock.real.arrival.prefix", "You arrived at ");
+		config.addDefault("format.text.custom.clock.real.arrival.sufix", ". Thank you for choosing Minecart Railways.");
 
-		config.getBoolean("debug", false);
-		config.save();
+		saveConfig();
 	}
 
 	public Location getStartLocation(final Player player) {
