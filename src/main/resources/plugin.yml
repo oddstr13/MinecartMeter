@@ -6,6 +6,5 @@ author: "Oddstr13"
 website: "https://github.com/oddstr13/MinecartMeter"
 commands:
   minecartmeter:
-    Description: 'Do MinecartMeter stuff'
-    Usage: '/minecartmeter'
-
+    Description: "Do MinecartMeter stuff"
+    Usage: "/minecartmeter"
