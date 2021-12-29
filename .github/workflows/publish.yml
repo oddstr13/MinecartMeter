@@ -29,12 +29,21 @@ jobs:
           distribution: "adopt"
           cache: maven
 
+      - name: Get latest release version number
+        id: get_version
+        uses: battila7/get-version-action@v2
+
+      - name: Get short commit sha
+        id: sha
+        run: echo "::set-output name=sha::$(git rev-parse --short HEAD)"
+
       - name: Build package
         run: >- # Folded string, newlines stripped.
           mvn --batch-mode --file pom.xml
           -Dminecraft.version=${{ env.minecraft_version }}
           -Dminecraft.api=${{ env.minecraft_api }}
           -DoutputDirectory=dist
+          -Drevision=${{ steps.get_version.outputs.version-without-v }}+build.${{ github.run_number }}.sha.${{ steps.sha.outputs.short }}
           clean verify
 
       - uses: actions/upload-artifact@v2
