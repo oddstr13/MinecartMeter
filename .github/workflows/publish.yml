@@ -35,7 +35,9 @@ jobs:
 
       - name: Get short commit sha
         id: sha
-        run: echo "::set-output name=sha::$(git rev-parse --short HEAD)"
+        run: |2
+          echo "::set-output name=short::$(git rev-parse --short HEAD)"
+          echo "::set-output name=full::$(git rev-parse HEAD)"
 
       - name: Build package
         run: >- # Folded string, newlines stripped.
