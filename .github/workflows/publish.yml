@@ -29,15 +29,15 @@ jobs:
           distribution: "adopt"
           cache: maven
 
-      - name: Get latest release version number
-        id: get_version
-        uses: battila7/get-version-action@v2
-
       - name: Get short commit sha
-        id: sha
+        id: vars
         run: |2
-          echo "::set-output name=short::$(git rev-parse --short HEAD)"
-          echo "::set-output name=full::$(git rev-parse HEAD)"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "::set-output name=sha::$(git rev-parse HEAD)"
+          TAG=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag::${TAG}"
+          echo "::set-output name=version::${TAG}"
+          echo "::set-output name=revs::$(git rev-list ${TAG}.. --count)"
 
       - name: Build package
         run: >- # Folded string, newlines stripped.
@@ -45,7 +45,7 @@ jobs:
           -Dminecraft.version=${{ env.minecraft_version }}
           -Dminecraft.api=${{ env.minecraft_api }}
           -DoutputDirectory=dist
-          -Drevision=${{ steps.get_version.outputs.version-without-v }}+build.${{ github.run_number }}.sha.${{ steps.sha.outputs.short }}
+          -Drevision=${{ steps.vars.outputs.version }}+build.${{ github.run_number }}.revs.${{ steps.vars.outputs.revs }}.sha.${{ steps.vars.outputs.sha_short }}
           clean verify
 
       - uses: actions/upload-artifact@v2
