@@ -1,0 +1,61 @@
+name: Publish Python Package
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      upload_url:
+        required: true
+        description: upload url of the release the assets need to get uploaded to
+
+env:
+  jdk_version: 8
+  minecraft_version: 1.8.8
+  minecraft_api: bukkit
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK ${{ env.jdk_version }}
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{ env.jdk_version }}
+          distribution: "adopt"
+          cache: maven
+
+      - name: Build package
+        run: >- # Folded string, newlines stripped.
+          mvn --batch-mode --file pom.xml
+          -Dminecraft.version=${{ env.minecraft_version }}
+          -Dminecraft.api=${{ env.minecraft_api }}
+          -DoutputDirectory=dist
+          clean verify
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: build-artifact
+          retention-days: 30
+          if-no-files-found: error
+          path: dist
+
+      - name: Upload GitHub Release Artifacts
+        uses: shogo82148/actions-upload-release-asset@v1
+        if: ${{ github.event_name == 'release' }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: "dist/*"
+          overwrite: true
+
+      - name: Upload GitHub Release Artifacts (Manual trigger)
+        uses: shogo82148/actions-upload-release-asset@v1
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        with:
+          upload_url: ${{ github.event.inputs.upload_url }}
+          asset_path: "dist/*"
+          overwrite: true
