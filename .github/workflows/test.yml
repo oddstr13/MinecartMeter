@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      max-parallel: 1
       fail-fast: false
       matrix:
         java: [8, 11, 17]
@@ -28,8 +27,8 @@ jobs:
           minecraft: 1.18.1
         include:
         - java: 8
-        - minecraft: 1.8.8
-        - minecraft_api: bukkit
+          minecraft: 1.8.8
+          minecraft_api: bukkit
 
     steps:
     - uses: actions/checkout@v2
