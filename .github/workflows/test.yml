@@ -11,7 +11,7 @@ on:
 
 jobs:
   testing:
-    name: Testing JDK ${{ matrix.java }}, ${{ matrix.api }} ${{ matrix.minecraft }}
+    name: Testing JDK ${{ matrix.java }}, ${{ matrix.minecraft_api }} ${{ matrix.minecraft }}
     runs-on: ubuntu-latest
 
     strategy:
