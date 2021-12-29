@@ -14,6 +14,8 @@ env:
   jdk_version: 8
   minecraft_version: 1.8.8
   minecraft_api: bukkit
+  curseforge_project_id: 31579
+  curseforge_versions: java-8,java-11,java-17,1.8.8,1.12.2,1.16.5,1.17.1,1.18,1.18.1
 
 jobs:
   build-publish:
@@ -50,6 +52,11 @@ jobs:
           -Drevision=${{ steps.vars.outputs.version }}+build.${{ github.run_number }}.revs.${{ steps.vars.outputs.revs }}.sha.${{ steps.vars.outputs.sha_short }}
           clean verify
 
+      - name: Get jar path
+        id: jar
+        run: |2
+          echo "::set-output name=file::$(find dist -iname '*.jar' | head -n 1)"
+
       - uses: actions/upload-artifact@v2
         with:
           name: build-artifact
@@ -72,3 +79,16 @@ jobs:
           upload_url: ${{ github.event.inputs.upload_url }}
           asset_path: "dist/*"
           overwrite: true
+
+      - name: Upload to CurseForge
+        uses: itsmeow/curseforge-upload@v3
+        if: ${{ github.event_name == 'release' }}
+        with:
+          token: ${{ secrets.CURSEFORGE_TOKEN }}
+          project_id: ${{ env.curseforge_project_id }}
+          game_endpoint: minecraft
+          file_path: ${{ steps.jar.outputs.file }}
+          changelog: ${{ github.event.release.body }}
+          display_name: ${{ github.event.release.name }}
+          game_versions: ${{ env.curseforge_versions }}
+          release_type: release
