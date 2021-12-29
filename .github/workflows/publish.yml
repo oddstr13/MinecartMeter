@@ -15,7 +15,7 @@ env:
   minecraft_version: 1.8.8
   minecraft_api: bukkit
   curseforge_project_id: 31579
-  curseforge_versions: java-8,java-11,java-17,1.8.8,1.12.2,1.16.5,1.17.1,1.18,1.18.1
+  curseforge_versions: Addons:1.8,Addons:1.12,Addons:1.16,Addons:1.17,Addons:1.18,Addons:1.18.1
 
 jobs:
   build-publish:
